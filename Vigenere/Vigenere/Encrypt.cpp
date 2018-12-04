@@ -14,22 +14,25 @@ Encrypt::~Encrypt()
 
 void Encrypt::DoEncryption(std::string plainText, std::string key)
 {
+	//Prepare text and key for encryption: 
 	ConvertToUpper(plainText); 
 	ConvertToUpper(key); 
 	
 	RemoveSpaces(plainText); 
 	RemoveSpaces(key); 
 	
+	//Pad the key to be the same length as the text: 
 	PadKey(plainText, key);
 
 	std::string encryption = "";
-	int codedLetter = 0; 
-
+	
+	//Perform encryption algorithm: 
 	for (int i = 0; i < plainText.length(); i++)
 	{ 
 		encryption += ((plainText[i] + key[i]) % 26) + 'A';
 	}
 
+	//Display encrypted text to the user: 
 	std::cout << encryption << std::endl; 
 
 	return; 
@@ -105,21 +108,25 @@ void Encrypt::RemoveSpaces(std::string & text)
 
 void Encrypt::DoDecryption(std::string cipherText, std::string key)
 {
+	//Prepare text for decryption: 
 	ConvertToUpper(cipherText); 
 	ConvertToUpper(key); 
 
 	RemoveSpaces(cipherText); 
 	RemoveSpaces(key);
 
+	//Pad key to be the same length as the ciphertext: 
 	PadKey(cipherText, key); 
 
 	std::string decryption = ""; 
 
+	//Perform decryption algorithm: 
 	for (int i = 0; i < cipherText.length(); i++)
 	{
 		decryption += ((cipherText[i] - key[i] + 26) % 26) + 'A';
 	}
 
+	//Display original message to the user: 
 	std::cout << decryption << std::endl;
 
 	return;
